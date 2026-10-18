@@ -80,7 +80,11 @@ static HAL_StatusTypeDef buildOutputFrame(uint16_t code, I2cDacFrame_t *frame)
                       ((code >> 8U) & 0x0FU);
 
     frame->bytes[2] = code & 0xFFU;
-    frame->length = 3U;
+    frame->bytes[3] = frame->bytes[0] | (1U << 1U);
+    frame->bytes[4] = frame->bytes[1];
+    frame->bytes[5] = frame-> bytes[2];
+
+    frame -> length = 6U;
 
     return HAL_OK;
 }
